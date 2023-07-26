@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import json
 import re
 
 app = Flask(__name__)
@@ -46,7 +45,3 @@ def index():
 
     else:
         return render_template('index.html', values=values)
-    
-""" @app.route('/result/')
-def result():
-    return render_template('result.html', values=json.loads(request.args["values"])) """
