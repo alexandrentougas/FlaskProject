@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Project</title>
+    <style>
+        #form {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            width: 600px;
+            text-align: center;
+        }
+
+        .alert {
+            text-align: center;
+            color: red;
+        }
+
+        .hun {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <form id="form" method="post" action="">
+        <label class="hun" for="name"></label>
+        <input class="hun" autocomplete="off" type="text" id="name" name="name" placeholder="Your name here">
+        <label class="hun" for="email"></label>
+        <input class="hun" autocomplete="off" type="email" id="email" name="email" placeholder="Your e-mail here">
+        <label for="firstname">First Name</label>
+        <input type="text" name="firstname" id="firstname" value="{{ values['firstname'] }}" required>
+        {% if get_flashed_messages(category_filter=["firstname"]) %}
+        <div class="alert">First Name is required</div>
+        {% endif %}
+        <label for="lastname">Last Name</label>
+        <input type="text" name="lastname" id="lastname" value="{{ values['lastname'] }}" required>
+        {% if get_flashed_messages(category_filter=["lastname"]) %}
+        <div class="alert">Last Name is required</div>
+        {% endif %}
+        <label for="email">Email</label>
+        <input type="text" name="emailabcd" id="emailabcd" value="{{ values['emailabcd'] }}" required>
+        {% with messages = get_flashed_messages(category_filter=["emailabcd"]) %}
+        {% if messages|length > 0 %}
+        <div class="alert">Email {{ messages[0] }}</div>
+        {% endif %}
+        {% endwith %}
+        <label for="country">Country</label>
+        <select name="country" id="country">
+            <option value="belgium" {{ "selected" if values['country'] == 'belgium' }}>Belgium</option>
+            <option value="france" {{ "selected" if values['country'] == 'france' }}>France</option>
+            <option value="spain" {{ "selected" if values['country'] == 'spain' }}>Spain</option>
+            <option value="netherlands" {{ "selected" if values['country'] == 'netherlands' }}>Netherlands</option>
+            <option value="germany" {{ "selected" if values['country'] == 'germany' }}>Germany</option>
+            <option value="luxembourg" {{ "selected" if values['country'] == 'luxembourg' }}>Luxembourg</option>
+        </select>
+        <div>
+            <label for="male">M</label>
+            <input type="radio" name="gender" id="male" value="male" {{ "checked" if values['gender'] == 'male' }}>
+            <label for="female">F</label>
+            <input type="radio" name="gender" id="female" value="female" {{ "checked" if values['gender'] == 'female' }}>
+        </div>
+        <label for="subject">Subject</label>
+        <select name="subject" id="subject">
+            <option value="repair" {{ "selected" if values['subject'] == 'repair' }}>Repair</option>
+            <option value="order" {{ "selected" if values['subject'] == 'order' }}>Order</option>
+            <option value="other" {{ "selected" if values['subject'] == 'other' }}>Other</option>
+        </select>
+        <label for="message">Message</label>
+        <textarea name="message" id="message" cols="100" rows="10" required>{{ values['message'] }}</textarea>
+        {% if get_flashed_messages(category_filter=["message"]) %}
+        <div class="alert">Message is required</div>
+        {% endif %}
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
