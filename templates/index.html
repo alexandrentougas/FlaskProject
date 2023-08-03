@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title">{% block title %} Messages {% endblock %}</h1>
+    <div class="content">
+        {% for message in messages %}
+            <div class="message">
+                <p><b>#{{ message.id }}</b></p>
+                <b>
+                    <p class="name">
+                        <a href="{{ url_for('blueprint.message', id=message.id)}}">
+                            {{ message.firstname }} {{ message.lastname }}
+                        </a>
+                    </p>
+                </b>
+                <p>{{ message.email }}</p>
+                <p>{{ message.country }}</p>
+                <p>{{ message.gender }}</p>
+                <div class="messageText">
+                    <h4>Subject : {{ message.subject }}</h4>
+                    <p>{{ message.message }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

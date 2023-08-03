@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span class="title">
+        <h1>{% block title %} Message {% endblock %}</h1>
+    </span>
+    <div class="content">
+            <div class="message">
+                <p><b>#{{ message.id }}</b></p>
+                <b>
+                    <p class="name">{{ message.firstname }} {{ message.lastname }}</p>
+                </b>
+                <p>{{ message.email }}</p>
+                <p>{{ message.country }}</p>
+                <p>{{ message.gender }}</p>
+                <div class="messageText">
+                    <h4>{{ message.subject }}</h4>
+                    <p>{{ message.message }}</p>
+                </div>
+                <a href="{{ url_for('blueprint.edit', id=message.id) }}">Edit</a>
+                <a href="{{ url_for('blueprint.delete', id=message.id) }}">Delete</a>
+            </div>
+    </div>
+{% endblock %}

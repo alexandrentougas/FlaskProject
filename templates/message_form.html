@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title">{% block title %} Contact {% endblock %}</h1>
+    <div class="content">
+        <form id="form" method="post" action="">
+            <label class="hun" for="name"></label>
+            <input class="hun" autocomplete="off" type="text" id="name" name="name" placeholder="Your name here">
+            <label class="hun" for="email1"></label>
+            <input class="hun" autocomplete="off" type="email" id="email1" name="email1" placeholder="Your e-mail here">
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" id="firstname" value="{{ message.firstname }}" required>
+            {% if get_flashed_messages(category_filter=["firstname"]) %}
+            <div class="alert">First Name is required</div>
+            {% endif %}
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" id="lastname" value="{{ message.lastname }}" required>
+            {% if get_flashed_messages(category_filter=["lastname"]) %}
+            <div class="alert">Last Name is required</div>
+            {% endif %}
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" value="{{ message.email }}" required>
+            {% with messages = get_flashed_messages(category_filter=["email"]) %}
+            {% if messages|length > 0 %}
+            <div class="alert">Email {{ messages[0] }}</div>
+            {% endif %}
+            {% endwith %}
+            <label for="country">Country</label>
+            <select name="country" id="country">
+                <option value="belgium" {{ "selected" if message.country == 'belgium' }}>Belgium</option>
+                <option value="france" {{ "selected" if message.country == 'france' }}>France</option>
+                <option value="spain" {{ "selected" if message.country == 'spain' }}>Spain</option>
+                <option value="netherlands" {{ "selected" if message.country == 'netherlands' }}>Netherlands</option>
+                <option value="germany" {{ "selected" if message.country == 'germany' }}>Germany</option>
+                <option value="luxembourg" {{ "selected" if message.country == 'luxembourg' }}>Luxembourg</option>
+            </select>
+            <div>
+                <label for="male">M</label>
+                <input type="radio" name="gender" id="male" value="m" {{ "checked" if message.gender == 'm' }}>
+                <label for="female">F</label>
+                <input type="radio" name="gender" id="female" value="f" {{ "checked" if message.gender == 'f' }}>
+            </div>
+            <label for="subject">Subject</label>
+            <select name="subject" id="subject">
+                <option value="repair" {{ "selected" if message.subject == 'repair' }}>Repair</option>
+                <option value="order" {{ "selected" if message.subject == 'order' }}>Order</option>
+                <option value="other" {{ "selected" if message.subject == 'other' }}>Other</option>
+            </select>
+            <label for="message">Message</label>
+            <textarea name="message" id="message" cols="100" rows="10" required>{{ message.message }}</textarea>
+            {% if get_flashed_messages(category_filter=["message"]) %}
+            <div class="alert">Message is required</div>
+            {% endif %}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    {% endblock %}
