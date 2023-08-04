@@ -11,7 +11,7 @@ def message(id):
     return render_template('message.html', message=message)
 
 def create():
-    values = Message.default_values
+    values = dict(Message.default_values)
 
     if request.method == 'POST':
         if request.form["name"] or request.form["email1"]:
